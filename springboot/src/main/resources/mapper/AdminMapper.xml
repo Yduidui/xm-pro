@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--xml和mapper一一对应-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springboot.mapper.AdminMapper">
+
+    <select id="selectAll" resultType="com.example.springboot.entity.Admin">
+        SELECT * FROM Admin
+        <where>
+            <if test="name != null">
+                AND name LIKE CONCAT('%', #{name}, '%')
+            </if>
+        </where>
+        ORDER BY id DESC
+    </select>
+
+
+    <select id="selectById" resultType="com.example.springboot.entity.Admin">
+        SELECT * FROM Admin WHERE id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="com.example.springboot.entity.Admin">
+        INSERT INTO Admin (name, username, password, role, avatar)
+        VALUES (#{name}, #{username}, #{password}, #{role}, #{avatar});
+    </insert>
+    <!-- 根据ID更新员工信息的SQL语句 -->
+    <update id="updateById" parameterType="com.example.springboot.entity.Admin">
+        UPDATE Admin
+        SET
+            name = #{name},
+            username = #{username},
+            password = #{password},
+            role = #{role},
+            avatar = #{avatar}
+        WHERE id = #{id};
+    </update>
+    <!-- 根据ID删除员工信息的SQL语句 -->
+    <delete id="deleteById" parameterType="com.example.springboot.entity.Admin">
+        DELETE FROM Admin WHERE id = #{id};
+    </delete>
+</mapper>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--xml和mapper一一对应-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springboot.mapper.EmployeeMapper">
+
+    <select id="selectAll" resultType="com.example.springboot.entity.Employee">
+        SELECT employee.*, department.name as departmentName FROM Employee
+        left join Department on Employee.department_id = department.id
+        <where>
+            <if test="name != null">
+                AND employee.name LIKE CONCAT('%', #{name}, '%')
+            </if>
+        </where>
+        ORDER BY employee.id DESC
+    </select>
+
+
+    <select id="selectById" resultType="com.example.springboot.entity.Employee">
+        SELECT * FROM Employee WHERE id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="com.example.springboot.entity.Employee">
+        INSERT INTO Employee (name, sex, jobnum, descr, age, department_id, username, password, role, avatar)
+        VALUES (#{name}, #{sex}, #{jobnum}, #{descr}, #{age}, #{departmentId}, #{username}, #{password}, #{role}, #{avatar});
+    </insert>
+    <!-- 根据ID更新员工信息的SQL语句 -->
+    <update id="updateById" parameterType="com.example.springboot.entity.Employee">
+        UPDATE Employee
+        SET
+            name = #{name},
+            sex = #{sex},
+            jobnum = #{jobnum},
+            descr = #{descr},
+            age = #{age},
+            department_id = #{departmentId},
+            username = #{username},
+            password = #{password},
+            role = #{role},
+            avatar = #{avatar}
+        WHERE id = #{id};
+    </update>
+    <!-- 根据ID删除员工信息的SQL语句 -->
+    <delete id="deleteById" parameterType="com.example.springboot.entity.Employee">
+        DELETE FROM Employee WHERE id = #{id};
+    </delete>
+</mapper>

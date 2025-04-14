@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--xml和mapper一一对应-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springboot.mapper.DepartmentMapper">
+
+    <select id="selectAll" resultType="com.example.springboot.entity.Department">
+        SELECT * FROM Department
+        <where>
+            <if test="name != null">
+                AND name LIKE CONCAT('%', #{name}, '%')
+            </if>
+        </where>
+        ORDER BY id DESC
+    </select>
+
+
+    <select id="selectById" resultType="com.example.springboot.entity.Department">
+        SELECT * FROM Department WHERE id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="com.example.springboot.entity.Department">
+        INSERT INTO Department (name)
+        VALUES (#{name});
+    </insert>
+    <!-- 根据ID更新员工信息的SQL语句 -->
+    <update id="updateById" parameterType="com.example.springboot.entity.Department">
+        UPDATE Department
+        SET
+            name = #{name}
+        WHERE id = #{id};
+    </update>
+    <!-- 根据ID删除员工信息的SQL语句 -->
+    <delete id="deleteById" parameterType="com.example.springboot.entity.Department">
+        DELETE FROM Department WHERE id = #{id};
+    </delete>
+</mapper>
