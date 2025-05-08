@@ -187,7 +187,7 @@ const update = () =>{
 
 const del = (id) =>{
   ElMessageBox.confirm('删除数据后无法恢复', '删除确认', {type: 'warning'}).then(() => {
-    request.delete(`/admin/deleteById/` + id).then((res) => {
+    request.delete(`/admin//` + id).then((res) => {
       if(res.code === '200'){
         ElMessage.success('操作成功')
         load()    //删除后加载最新的数据

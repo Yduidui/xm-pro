@@ -22,6 +22,7 @@
         <el-form-item label="姓名" >
           <el-input v-model="data.form.name" autocomplete="off" placeholder="请输入姓名"/>
         </el-form-item>
+
         <div v-if="data.user.role === 'EMP'">
           <el-form-item label="性别" >
             <el-radio-group v-model = "data.form.sex">
